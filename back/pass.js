@@ -45,7 +45,7 @@ const registerStrategy = new LocalStrategy({
         return done(null, false, {message: "Cannot create user"})
     }
 
-    return done(null, false, {message: "This user already exist"})
+    return done(null, {message: "This user already exist"})
 })
 
 const cookieStrategy = new CookieStrategy({

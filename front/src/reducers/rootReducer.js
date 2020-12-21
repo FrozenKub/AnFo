@@ -2,6 +2,7 @@ import {store} from "../index";
 
 let nextPostId = 0
 
+let message = "";
 
 const initialState = {
     type: '',
@@ -47,7 +48,7 @@ export default function rootReducer(state = initialState, action )
 
         case "ALERT_LOGIN":
 
-            alert("Saga worked")
+            alert("Welcome back!")
             break;
 
 
@@ -59,12 +60,18 @@ export default function rootReducer(state = initialState, action )
                     'Content-Type': 'application/json;charset=utf-8'
                 },
                 body: JSON.stringify(action.regInfo)
-            }).then(response => { response.json().then(data => { console.log(data) }) });
+            }).then(response => { response.json().then(data => {
+                if (data.message=="OK")
+            {
+                alert("You are now registered!")
+            }
+                else alert("User with this name already exists. \nTry another one.")
+            }) });
+
             break;
 
         case "ALERT_REGISTER":
-
-            alert("You are now Registered!")
+                alert("Attempting to create user!");
             break;
 
     }

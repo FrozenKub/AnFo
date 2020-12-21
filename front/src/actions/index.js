@@ -11,3 +11,9 @@ export const loginingAction = value => ({
     type: 'LOGGING',
     logInfo: value
 })
+
+
+export const regAction = value => ({
+    type: 'REGISTER',
+    regInfo: value
+})

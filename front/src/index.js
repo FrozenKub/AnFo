@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import {applyMiddleware, createStore} from 'redux'
 import rootReducer from './reducers/rootReducer'
 import createSagaMiddleware from "redux-saga"
-import {watchLogin, watchPost} from "./saga/saga";
+import {watchLogin, watchPost, watchRegister} from "./saga/saga";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -19,7 +19,8 @@ export const store = createStore(rootReducer, [],  composeWithDevTools(
 ));
 
 sagaMiddleware.run(watchPost);
-sagaMiddleware.run(watchLogin)
+sagaMiddleware.run(watchLogin);
+sagaMiddleware.run(watchRegister);
 
 ReactDOM.render(
     <Provider store={store}>

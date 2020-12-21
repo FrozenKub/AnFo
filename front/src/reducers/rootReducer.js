@@ -50,6 +50,23 @@ export default function rootReducer(state = initialState, action )
             alert("Saga worked")
             break;
 
+
+        case "REGISTER":
+
+            fetch('api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(action.regInfo)
+            }).then(response => { response.json().then(data => { console.log(data) }) });
+            break;
+
+        case "ALERT_REGISTER":
+
+            alert("You are now Registered!")
+            break;
+
     }
     return state
 }

@@ -19,3 +19,13 @@ export function* watchLogin()
 {
     yield takeEvery("LOGGING", workLogin);
 }
+
+function *workRegister()
+{
+    yield put({type: "ALERT_REGISTER"})
+}
+
+export function* watchRegister()
+{
+    yield takeEvery("REGISTER", workRegister);
+}

@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 
 import styled from 'styled-components';
+import {store} from "./index";
+import {regAction} from "./actions";
 
 const UpperCorner = styled.div`
     position: absolute;
@@ -42,14 +44,7 @@ class registerClass extends React.Component{
 
     handleSubmit(e)
     {
-        console.log(JSON.stringify(this.state))
-        fetch('api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(this.state)
-        }).then(response => { response.json().then(data => { console.log(data) }) });
+        store.dispatch(regAction(this.state))
     }
 
 

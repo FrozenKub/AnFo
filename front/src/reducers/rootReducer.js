@@ -29,14 +29,7 @@ export default function rootReducer(state = initialState, action )
 
 
         case "ALERT_POST":
-            alert("rootReducer")
-            state.push({
-                type: 'ALERT_POST',
-                id: nextPostId,
-                name: action.name,
-                title: action.title,
-                content: action.content
-            })
+            alert("Post was Created!")
             break;
     }
     return state

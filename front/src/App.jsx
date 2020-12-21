@@ -184,9 +184,10 @@ class App extends React.Component{
             });
         } else {
             store.dispatch(addPost(value))
-            array.push({name: userId, title: store.getState()[counter].title, content: store.getState()[counter].content});
             this.setState({name: userId, title: store.getState()[counter].title, content: store.getState()[counter].content});
+            array.push({name: userId, title: store.getState()[counter].title, content: store.getState()[counter].content});
             counter++;
+
             this.props.enqueueSnackbar("POST CREATED", {
                 variant: 'success',
             });

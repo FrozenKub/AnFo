@@ -6,13 +6,3 @@ export const addPost = value => ({
     title: value.title,
     content: value.content
 })
-
-export const setVisibilityFilter = filter => ({
-    type: 'SET_VISIBILITY_FILTER',
-    filter
-})
-
-export const togglePost = id => ({
-    type: 'TOGGLE_POST',
-    id
-})

@@ -1,4 +1,4 @@
-import {takeEvery, put} from "redux-saga/effects"
+import {takeLatest, put} from "redux-saga/effects"
 
 function *workPost()
 {
@@ -7,5 +7,5 @@ function *workPost()
 
 export function* watchPost()
 {
-    yield takeEvery("ADD_POST", workPost);
+    yield takeLatest("ADD_POST", workPost);
 }

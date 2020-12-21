@@ -1,4 +1,4 @@
-import {takeLatest, put} from "redux-saga/effects"
+import {takeLatest, takeEvery, put} from "redux-saga/effects"
 
 function *workPost()
 {
@@ -8,4 +8,14 @@ function *workPost()
 export function* watchPost()
 {
     yield takeLatest("ADD_POST", workPost);
+}
+
+function *workLogin()
+{
+    yield put({type: "ALERT_LOGIN"})
+}
+
+export function* watchLogin()
+{
+    yield takeEvery("LOGGING", workLogin);
 }

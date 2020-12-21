@@ -6,3 +6,8 @@ export const addPost = value => ({
     title: value.title,
     content: value.content
 })
+
+export const loginingAction = value => ({
+    type: 'LOGGING',
+    logInfo: value
+})

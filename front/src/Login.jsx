@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 
 import styled from 'styled-components';
+import {store} from "./index";
+import {addPost, loginingAction} from "./actions";
 
 const UpperCorner = styled.div`
     position: absolute;
@@ -54,13 +56,7 @@ class loginClass extends React.Component{
 
     handleSubmit(e)
     {
-        fetch('/api/users/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(this.state)
-        }).then(response => { response.json().then(data => { console.log(data) }) });
+        store.dispatch(loginingAction(this.state))
     }
 
 

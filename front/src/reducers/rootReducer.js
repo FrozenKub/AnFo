@@ -31,6 +31,32 @@ export default function rootReducer(state = initialState, action )
         case "ALERT_POST":
             alert("Post was Created!")
             break;
+
+
+
+        case "LOGGING":
+
+            fetch('/api/users/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(action.logInfo)
+            }).then(response => { response.json().then(data => { console.log(data) }) });
+
+
+            state.push({
+                type: 'LOGGING',
+                logInfo: action.logInfo
+            })
+
+            break;
+
+        case "ALERT_LOGIN":
+
+            alert("Saga worked")
+            break;
+
     }
     return state
 }

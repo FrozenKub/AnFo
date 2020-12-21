@@ -43,13 +43,6 @@ export default function rootReducer(state = initialState, action )
                 },
                 body: JSON.stringify(action.logInfo)
             }).then(response => { response.json().then(data => { console.log(data) }) });
-
-
-            state.push({
-                type: 'LOGGING',
-                logInfo: action.logInfo
-            })
-
             break;
 
         case "ALERT_LOGIN":

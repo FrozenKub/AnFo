@@ -42,6 +42,7 @@ class StickyUp extends React.Component {
             <>
                 <div class="block-stiky">
                     <img src="/AnFoLogo.png" width="5%" alt="Hi"/>
+                    <h1>Anonymous_Forum</h1>
                 </div>
                 <UpperCorner>
                     <LargerA>

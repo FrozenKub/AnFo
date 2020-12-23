@@ -1,10 +1,21 @@
 import React from "react";
 
+let pos;
+
+let dec = 0;
 
 class SANDBOX extends React.Component{
 
     constructor(props) {
         super(props);
+
+
+        this.gValue = "";
+
+        this.numbers =
+            {
+                id: "3"
+            }
 
         this.state = {
             id: "",
@@ -13,7 +24,6 @@ class SANDBOX extends React.Component{
             content: "Yes"
         }
     }
-
 
     handleNewClick(e)
     {
@@ -31,61 +41,55 @@ class SANDBOX extends React.Component{
 
     }
 
-    handleClick(e)
+   async handleClick(e)
     {
-        console.log(this.state.id)
-
         e.preventDefault()
-        alert("handleClick Clicked");
 
-
-        fetch('/api/post/id', {
+        let data = await fetch('/api/post/id', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
-            body: JSON.stringify(this.state)
-        }).then(response => { response.json().then(data => { alert(JSON.stringify(data)) }) });
+            body: JSON.stringify(this.numbers)
+        })
 
+        return data.json();
     }
 
-
-
-    handleBestClick(e)
+    async handleBestClick(e)
     {
+        e.preventDefault();
 
-        e.preventDefault()
-
-
-        fetch('/api/post/count', {
+        let data = await fetch('/api/post/count', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(this.state)
-        }).then(response => { response.json().then(data => { alert(JSON.stringify(data.count)) }) });
+            }
+        })
 
+        return data.json();
     }
-
 
     render()
     {
     return (
         <div className="centered">
-            <button onClick={e => {
-                this.setState({id: 21})
-                this.handleClick(e)
-            }}>Find Post</button>
+
+            <button onClick={async e => {
+
+                let cou = await this.handleBestClick(e)
+                let couJs = await JSON.stringify(cou.count);
+                this.numbers.id = couJs-1;
+
+                let pos = await this.handleClick(e)
+                let posJs = await JSON.stringify(pos.content);
+
+                    console.log("cou: " + couJs)
+                    console.log("pos: " + posJs)
 
 
-            <button onClick={e => {
-                this.handleNewClick(e)
-            }}>Create Post</button>
+            }}>Show Post</button>
 
-
-            <button onClick={e => {
-                this.handleBestClick(e)
-            }}>Count Posts</button>
         </div>
     );
 }

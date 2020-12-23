@@ -34,6 +34,9 @@ const Button = styled.button`
     background-color: #00080f;
 `;
 
+
+
+
 let array = [];
 
 array.push({name: "1512", title: "NNN is over!", content: "Here we go again."})
@@ -131,8 +134,21 @@ class App extends React.Component{
     constructor(props) {
         super(props);
 
+
+        this.arry = [];
+        this.arry.push({name: "123", title: "234", content: "345"})
+
+        this.numbers =
+            {
+                id: "3"
+            }
+
+        this.arry=
+            {
+
+            }
         this.handleClick = this.handleClick.bind(this)
-        this.state = {  name: this.props.login, title: "SHIT ASS TITLE", content: "Don't tell anyone!"}
+        this.state = { id: "", name: this.props.login, title: "SHIT ASS TITLE", content: "Don't tell anyone!"}
     }
 
     componentDidMount() {
@@ -204,11 +220,49 @@ class App extends React.Component{
         }
     }
 
-    handlePostsLoad(id)
+
+
+    async handlePostFind()
     {
 
+        let data = await fetch('/api/post/id', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(this.numbers)
+        })
+
+        return data.json();
     }
 
+
+    async handlePostsCount()
+    {
+
+        let data = await fetch('/api/post/count', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+
+        return data.json();
+    }
+
+    async getRes()
+    {
+        console.log("getRes STARTED")
+
+        let cou = await this.handlePostsCount()
+        console.log("cou await ended")
+        let couJs = await JSON.stringify(cou.count);
+        this.numbers.id = couJs-1;
+        let pos = await this.handlePostFind()
+        console.log(JSON.stringify(pos))
+
+        return pos;
+    }
 
     handlePostClick(e)
     {
@@ -233,8 +287,24 @@ class App extends React.Component{
         }
     }
 
+
+    async cryBitch()
+    {
+        let objS = await this.getRes();
+        let nameS = await JSON.stringify(objS.name);
+        console.log(nameS);
+        let titleS = await JSON.stringify(objS.title);
+        let contentS = await JSON.stringify(objS.content);
+        array.push({
+            name: nameS,
+            title: titleS,
+            content: contentS
+        });
+    }
+
     render()
     {
+
         return (
             <>
                 <Profile name={this.state.name}/>
@@ -254,7 +324,7 @@ class App extends React.Component{
 
                         <PostSubmit type="submit" onClick={e => {
                             e.preventDefault()
-                            this.createPost(e)
+                            this.cryBitch(e)
                         }}  value="POST"/>
 
 

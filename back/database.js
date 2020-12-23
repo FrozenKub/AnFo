@@ -1,6 +1,7 @@
 const {Sequelize} = require('sequelize')
 const settings = require('./config/config.json').development
 const argon = require('argon2')
+const Op = Sequelize.Op;
 
 const sequelize = new Sequelize(settings.database, settings.username, settings.password, {
     host: settings.host,
@@ -28,6 +29,16 @@ async function findPost(id) {
         }
     })
 }
+
+
+async function numberOfPosts() {
+    return await postModel.findAndCountAll({
+        where: {
+            id: { [Op.gt]: 0 }
+        }
+    })
+}
+
 
 async function findUser(username) {
     return await userModel.findOne({
@@ -136,3 +147,4 @@ exports.findAllUsers = findAllUsers;
 exports.deleteUserById = deleteUserById;
 exports.createNewPost= createNewPost;
 exports.findPost = findPost;
+exports.numberOfPosts=numberOfPosts;

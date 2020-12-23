@@ -49,6 +49,25 @@ class SANDBOX extends React.Component{
 
     }
 
+
+
+    handleBestClick(e)
+    {
+
+        e.preventDefault()
+
+
+        fetch('/api/post/count', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(this.state)
+        }).then(response => { response.json().then(data => { alert(JSON.stringify(data.count)) }) });
+
+    }
+
+
     render()
     {
     return (
@@ -56,12 +75,17 @@ class SANDBOX extends React.Component{
             <button onClick={e => {
                 this.setState({id: 21})
                 this.handleClick(e)
-            }}>Find Post 1</button>
+            }}>Find Post</button>
 
 
             <button onClick={e => {
                 this.handleNewClick(e)
             }}>Create Post</button>
+
+
+            <button onClick={e => {
+                this.handleBestClick(e)
+            }}>Count Posts</button>
         </div>
     );
 }

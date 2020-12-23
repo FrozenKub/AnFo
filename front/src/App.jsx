@@ -204,6 +204,11 @@ class App extends React.Component{
         }
     }
 
+    handlePostsLoad(id)
+    {
+
+    }
+
 
     handlePostClick(e)
     {

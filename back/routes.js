@@ -2,7 +2,7 @@ const router = require('express').Router()
 const passport = require('./pass').passport
 const {createNewPost} = require ("./database")
 const logger = require('./logger');
-const {findUserById, findPost} = require("./database");
+const {findUserById, findPost, numberOfPosts} = require("./database");
 
 const {
     HttpError,
@@ -62,6 +62,13 @@ router.post('/api/post/create',async (req, res, done) => {
 
 });
 
+
+router.post('/api/post/count',async (req, res, done) => {
+
+    let postCount = await numberOfPosts();
+    res.send(postCount);
+
+});
 
 
 

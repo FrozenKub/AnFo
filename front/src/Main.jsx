@@ -19,6 +19,7 @@ import { SnackbarProvider } from 'notistack';
 
 
 import Navbar from "./components/Navbar";
+import SANDBOX from "./SANDBOX.jsx";
 
 
 class Main extends React.Component {
@@ -76,7 +77,7 @@ class Main extends React.Component {
 
                         <Route exact path="/redux">
                             <div>
-                                <Navbar/>
+                                <SANDBOX/>
                             </div>
                         </Route>
 

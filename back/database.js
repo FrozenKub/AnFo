@@ -9,6 +9,7 @@ const sequelize = new Sequelize(settings.database, settings.username, settings.p
 })
 
 const userModel = require('./models/user')(sequelize, Sequelize)
+const postModel = require('./models/post')(sequelize, Sequelize)
 
 async function connectToDatabase() {
     try {
@@ -17,6 +18,15 @@ async function connectToDatabase() {
     } catch (error) {
         console.error("Unable to connect to the database: ", error)
     }
+}
+
+
+async function findPost(id) {
+    return await postModel.findOne({
+        where: {
+            id: id
+        }
+    })
 }
 
 async function findUser(username) {
@@ -78,6 +88,19 @@ async function createNewUser(username, password, role = "User") {
 
 }
 
+
+async function createNewPost(name, title, content = "Post") {
+
+        let newPost = postModel.build({
+            name: name,
+            title: title,
+            content: content
+        });
+
+
+        return await newPost.save();
+}
+
 async function updateUserData(req, res, next) {
 
     let user = await findUserById(req.user.id)
@@ -105,8 +128,11 @@ exports.findUser = findUser;
 exports.getUserPassword = getUserPassword;
 exports.isUserExist = isUserExist;
 exports.User = userModel;
+exports.Post = postModel;
 exports.createNewUser = createNewUser;
 exports.findUserById = findUserById;
 exports.updateUserData = updateUserData;
 exports.findAllUsers = findAllUsers;
 exports.deleteUserById = deleteUserById;
+exports.createNewPost= createNewPost;
+exports.findPost = findPost;

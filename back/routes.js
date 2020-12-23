@@ -1,8 +1,8 @@
 const router = require('express').Router()
 const passport = require('./pass').passport
-
+const {createNewPost} = require ("./database")
 const logger = require('./logger');
-const {findUserById} = require("./database");
+const {findUserById, findPost} = require("./database");
 
 const {
     HttpError,
@@ -38,6 +38,32 @@ router.post('/api/users/name',(req, res) => {
     res.send({login: req.user.id})
     console.log("ID: " + req.user.id)
 });
+
+
+router.post('/api/post/id',async (req, res, done) => {
+    console.log(req.body.id)
+    console.log("//////////////////////////////////////////")
+    let post = await findPost(req.body.id)
+    res.send(JSON.stringify(post))
+
+});
+
+router.post('/api/post/create',async (req, res, done) => {
+    let newPost = await createNewPost(req.body.name, req.body.title, req.body.content)
+    if (newPost) {
+        console.log("GOOD")
+        console.log(JSON.stringify(newPost))
+        return newPost
+    }
+    else {
+        console.log("BAD")
+        return done(null, false, {message: "Cannot create post"})
+    }
+
+});
+
+
+
 
 router.get('/api/user/logout', function (req, res) {
     req.logout();

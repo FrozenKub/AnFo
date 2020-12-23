@@ -4,7 +4,7 @@ module.exports = {
         cookieLifeTime: 24*60*60*1000
     },
     session: {
-        cookieSecret: "SecretForCookie",
+        cookieSecret: "SecretInformation",
         cookieName: "session"
     }
 }

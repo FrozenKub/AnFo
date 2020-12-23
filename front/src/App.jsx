@@ -178,19 +178,29 @@ class App extends React.Component{
                 variant: 'error',
             });
         }
-        else if (value.title == "" | value.content == "") {
-            this.props.enqueueSnackbar("FILL IN BOTH TITLE AND CONTENT", {
-                variant: 'error',
-            });
-        } else {
-            store.dispatch(addPost(value))
-            this.setState({name: userId, title: store.getState()[counter].title, content: store.getState()[counter].content});
-            array.push({name: userId, title: store.getState()[counter].title, content: store.getState()[counter].content});
-            counter++;
+        else {
+            if (value.title == "" | value.content == "") {
+                this.props.enqueueSnackbar("FILL IN BOTH TITLE AND CONTENT", {
+                    variant: 'error',
+                });
+            } else {
+                store.dispatch(addPost(value))
+                this.setState({
+                    name: userId,
+                    title: store.getState()[counter].title,
+                    content: store.getState()[counter].content
+                });
+                array.push({
+                    name: userId,
+                    title: store.getState()[counter].title,
+                    content: store.getState()[counter].content
+                });
+                counter++;
 
-            this.props.enqueueSnackbar("POST CREATED", {
-                variant: 'success',
-            });
+                this.props.enqueueSnackbar("POST CREATED", {
+                    variant: 'success',
+                });
+            }
         }
     }
 

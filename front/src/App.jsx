@@ -88,6 +88,13 @@ array.push({name: "51133", title: "DO NOT DO IT!", content: "https://youtu.be/dQ
 array.push({name: "6332", title: "Try me bitch.", content: "Yes"})
 
 
+let p1 ;
+let p2 ;
+let p3 ;
+let p4;
+let p5;
+let p6 ;
+
 const TitleInput = styled.input`
 width: 12vw;
 font-size: 10pt;
@@ -134,24 +141,33 @@ class App extends React.Component{
     constructor(props) {
         super(props);
 
-
-        this.arry = [];
-        this.arry.push({name: "123", title: "234", content: "345"})
-
         this.numbers =
             {
                 id: "3"
             }
 
-        this.arry=
-            {
-
-            }
         this.handleClick = this.handleClick.bind(this)
         this.state = { id: "", name: this.props.login, title: "SHIT ASS TITLE", content: "Don't tell anyone!"}
     }
 
-    componentDidMount() {
+    newPostCreate(e)
+    {
+        e.preventDefault()
+        console.log(this.state)
+        fetch('/api/post/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(this.state)
+        }).then(response => { response.json().then(data => { }) });
+
+        this.props.enqueueSnackbar("POST CREATED", {
+            variant: 'success',
+        });
+    }
+
+    async componentDidMount() {
 
 
         fetch('/api/users/name', {
@@ -162,6 +178,18 @@ class App extends React.Component{
             body: JSON.stringify(this.state)
         }).then(response => { response.json().then(data => { userId = data.login})});
 
+         p1 = await this.cryBitch(0);
+         p2 = await this.cryBitch(1);
+         p3 = await this.cryBitch(2);
+         p4 = await this.cryBitch(3);
+         p5 = await this.cryBitch(4);
+         p6 = await this.cryBitch(5);
+        array.push({name: p6.name, title: p6.title, content: p6.content})
+        array.push({name: p5.name, title: p5.title, content: p5.content})
+        array.push({name: p4.name, title: p4.title, content: p4.content})
+        array.push({name: p3.name, title: p3.title, content: p3.content})
+        array.push({name: p2.name, title: p2.title, content: p2.content})
+        array.push({name: p1.name, title: p1.title, content: p1.content})
 
         this.setState({name: userId, title: "THERE WILL BE TITLE", content: "THERE WILL BE YOUR CONTENT"})
 
@@ -175,7 +203,6 @@ class App extends React.Component{
 
     createPost(e) {
         e.preventDefault();
-
 
         fetch('/api/users/name', {
             method: 'POST',
@@ -250,14 +277,14 @@ class App extends React.Component{
         return data.json();
     }
 
-    async getRes()
+    async getRes(num)
     {
         console.log("getRes STARTED")
 
         let cou = await this.handlePostsCount()
         console.log("cou await ended")
         let couJs = await JSON.stringify(cou.count);
-        this.numbers.id = couJs-1;
+        this.numbers.id = couJs-num;
         let pos = await this.handlePostFind()
         console.log(JSON.stringify(pos))
 
@@ -288,18 +315,19 @@ class App extends React.Component{
     }
 
 
-    async cryBitch()
+    async cryBitch(num)
     {
-        let objS = await this.getRes();
+        let objS = await this.getRes(num);
         let nameS = await JSON.stringify(objS.name);
         console.log(nameS);
         let titleS = await JSON.stringify(objS.title);
         let contentS = await JSON.stringify(objS.content);
-        array.push({
+        let ary = {
             name: nameS,
             title: titleS,
             content: contentS
-        });
+        };
+        return ary;
     }
 
     render()
@@ -318,17 +346,16 @@ class App extends React.Component{
                 <div id="createPost" className="post-create">
 
 
-                        <TitleInput type="text"  onChange={e=>(value.title = e.target.value)} name="title" placeholder="Title" />
+                        <TitleInput type="text"  onChange={e=>{(this.state.title = e.target.value); console.log(e.target.value)}} name="title" placeholder="Title" />
 
-                        <ContentInput type="text" onChange={e=>(value.content = e.target.value)} name="content" placeholder="CONTENT"/>
+                        <ContentInput type="text" onChange={e=>(this.state.content = e.target.value)} name="content" placeholder="CONTENT"/>
 
                         <PostSubmit type="submit" onClick={e => {
                             e.preventDefault()
-                            this.cryBitch(e)
+                            console.log("Value: " + value.name);
+                            this.setState({title: value.title, content: value.content})
+                            this.newPostCreate(e)
                         }}  value="POST"/>
-
-
-
                 </div>
 
                 <A>

@@ -52,6 +52,7 @@ router.post('/api/post/create',async (req, res, done) => {
     let newPost = await createNewPost(req.body.name, req.body.title, req.body.content)
     if (newPost) {
         console.log("GOOD")
+        console.log(req.body.title)
         console.log(JSON.stringify(newPost))
         return newPost
     }

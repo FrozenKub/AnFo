@@ -14,12 +14,12 @@ class SANDBOX extends React.Component{
 
         this.numbers =
             {
-                id: "3"
+                id: "1"
             }
 
         this.state = {
             id: "",
-            name: "3",
+            name: "4",
             title: "CHANGED",
             content: "Yes"
         }

@@ -314,14 +314,13 @@ class App extends React.Component{
         }
     }
 
-
     async cryBitch(num)
     {
         let objS = await this.getRes(num);
-        let nameS = await JSON.stringify(objS.name);
+        let nameS = await objS.name;
         console.log(nameS);
-        let titleS = await JSON.stringify(objS.title);
-        let contentS = await JSON.stringify(objS.content);
+        let titleS = await objS.title;
+        let contentS = await objS.content;
         let ary = {
             name: nameS,
             title: titleS,
